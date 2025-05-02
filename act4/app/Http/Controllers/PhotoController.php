@@ -45,3 +45,4 @@ class PhotoController extends Controller
         return back()->with('success', 'Multiple images uploaded successfully!');
     }
 }
+
