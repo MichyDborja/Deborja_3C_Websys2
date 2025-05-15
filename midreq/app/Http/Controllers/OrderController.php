@@ -9,11 +9,21 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::with('customer', 'product')->get();
+        $search = $request->input('search');
+    
+        $orders = Order::with('customer', 'product')
+            ->when($search, function ($query, $search) {
+                $query->whereHas('customer', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%");
+                })->orWhere('status', 'like', "%{$search}%");
+            })
+            ->get();
+    
         return view('orders.index', compact('orders'));
     }
+    
 
     public function create(Request $request)
     {

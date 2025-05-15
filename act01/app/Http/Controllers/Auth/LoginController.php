@@ -25,7 +25,7 @@ $request->validate([
 
 $user = DB::table('users')->where('email', $request->email)->first();
 
-if ($user && Hash::check($request->password, $user->password)) {
+if ($user && Hash::check($request->password, $user->password)) {    
     Auth::loginUsingId($user->id); 
     return redirect()->route('dashboard'); 
 }

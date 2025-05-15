@@ -9,9 +9,14 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'description', 'price', 'quantity', 'category_id'];
-
+    public $timestamps = true;
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
+    public function orders()
+{
+    return $this->hasMany(Order::class);
+}
+
 }

@@ -23,6 +23,11 @@
                 <a class="nav-link" href="{{ route('orders.index') }}">Orders</a>
             </div>
             </div>
+            
+            <form action="{{ route('orders.index') }}" method="GET" class="d-flex">
+                <input class="form-control me-2" type="search" name="search" placeholder="Search products..." value="{{ request('search') }}">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
     </div>
 </nav>
 
@@ -50,7 +55,7 @@
         @foreach ($orders as $order)
         <tr>
             <td>{{ $order->id }}</td>
-            <td>{{ $order->customer->name }}</td>
+            <td>{{ $order->customer->name }} </td>
             <td>{{ ucfirst($order->status) }}</td>
             <td>₱{{ number_format($order->total_price, 2) }}</td>
             <td>{{ $order->created_at->format('F d, Y h:i A') }}</td> 
